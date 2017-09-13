@@ -262,9 +262,7 @@ ph_hadr = ph_hadr_rndm.Uniform(0.,6.28318);
   // cout << phi_e<<" "<<E_E_prime<<" "<< Theta_e_prime<<" "<<nu<<" mp\n";
   P4_E_prime.SetXYZT(E_E_prime*cos(phi_e)*sin(Theta_e_prime),E_E_prime*sin(phi_e)*sin(Theta_e_prime),E_E_prime*cos(Theta_e_prime),E_E_prime);
    
-  // cout << P4_E_prime[0]<<" "<<P4_E_prime[1]<<" "<<P4_E_prime[2]<<" "<<P4_E_prime[3]<<" 1\n";
-    
- // cout << E_beam<<" "<<E_E_prime<<" "<< Theta_e_prime<<" "<<phi_e<<" mp\n";
+
     E_beam_new = E_beam;
 
     W_old = W;
