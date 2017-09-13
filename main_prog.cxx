@@ -305,12 +305,6 @@ if (flag_radmod == 0){
 
 fermi_rot(E_beam_fermi,theta_rot2,E_beam,P4_E_prime,P4_E_prime_boosted);  
 
-//if (W_ferm > sqrt(MP*MP+2.*MP*E_beam_fermi - Q2)) cout <<E_beam<<" "<<E_beam_fermi<<" "<<W_old<<" "<< W_ferm<<" "<< sqrt(MP*MP+2.*MP*E_beam_fermi - Q2) <<" r1\n";
-
-if (sqrt(MP*MP+2.*MP*E_beam_fermi - Q2)<1.8) cout <<E_beam<<" "<<E_beam_fermi<<" "<<W_old<<" "<< W_ferm<<" "<< sqrt(MP*MP+2.*MP*E_beam_fermi - Q2) <<" r1\n";
-
-if (Q2 > 4.*E_beam_fermi*E_beam_fermi*sin(M_PI/2.)*sin(M_PI/2.)) cout<<Q2<<" "<< 4.*E_beam_fermi*E_beam_fermi*sin(M_PI/2.)*sin(M_PI/2.) <<" r2\n";
-
 ph_e_qualab = P4_E_prime_boosted.Phi();
 
 W = W_ferm;
