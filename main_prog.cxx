@@ -165,26 +165,30 @@ read_fit_param_files();
     P4_Pini.SetXYZT(0.,0.,0.,MP); 
     P4_Eini.SetXYZT(0.,0.,E_beam,E_beam);
      
-   //Reasonably changing kinematical variables if needed
-    if (Q2_max > 4.*E_beam*E_beam*sin(Theta_max*M_PI/180./2.)*sin(Theta_max*M_PI/180./2.)) {
-    Q2_max = 4.*E_beam*E_beam*sin(Theta_max*M_PI/180./2.)*sin(Theta_max*M_PI/180./2.);
-    cout << "maximum Q2 has been changed to " << Q2_max << "\n";
-    };
+   //Reasonably changing max&min limits of kinematical variables if needed
+    
     if (Q2_min < 4.*E_beam*E_eprime_min*sin(Theta_min*M_PI/180./2.)*sin(Theta_min*M_PI/180./2.)) {
     Q2_min = 4.*E_beam*E_eprime_min*sin(Theta_min*M_PI/180./2.)*sin(Theta_min*M_PI/180./2.);
     cout << "minimum Q2 has been changed to " << Q2_min << "\n";
-    };   
-    if (W_max*W_max > (MP*MP+2.*MP*(E_beam-E_eprime_min) - Q2_min)) {
-    W_max = sqrt(MP*MP+2.*MP*(E_beam-E_eprime_min)- Q2_min);
+    }; 
+     if (W_min < (1.2375)) {
+    W_min = 1.2375;
+    cout << "minimum W has been changed to " << W_min << "\n";
+    };  
+    
+  
+    if (W_max*W_max > (2*E_beam*(2*E_beam*MP+MP*MP)-Q2_min*(MP+2*E_beam))/2/E_beam) {
+    W_max = sqrt((2*E_beam*(2*E_beam*MP+MP*MP)-Q2_min*(MP+2*E_beam))/2/E_beam);
     cout << "maximum W has been changed to " << W_max << "\n";
     };
-//    if (W_min < (MP + MPIP + MPIM + 0.01)) {
-//    W_min = MP + MPIP + MPIM + 0.01;
-     if (W_min < (1.2375)) {
-     W_min = 1.2375;
-
-    cout << "minimum W has been changed to " << W_min << "\n";
+       
+    if (Q2_max > 2*E_beam*(2*E_beam*MP-W_min+MP*MP)/(MP+2*E_beam)) {
+    Q2_max = 2*E_beam*(2*E_beam*MP-W_min*W_min+MP*MP)/(MP+2*E_beam);
+    cout << "maximum Q2 has been changed to " << Q2_max << "\n";
     };
+     
+
+
       
 
       
@@ -262,7 +266,9 @@ ph_hadr = ph_hadr_rndm.Uniform(0.,6.28318);
   // cout << phi_e<<" "<<E_E_prime<<" "<< Theta_e_prime<<" "<<nu<<" mp\n";
   P4_E_prime.SetXYZT(E_E_prime*cos(phi_e)*sin(Theta_e_prime),E_E_prime*sin(phi_e)*sin(Theta_e_prime),E_E_prime*cos(Theta_e_prime),E_E_prime);
    
-
+  // cout << P4_E_prime[0]<<" "<<P4_E_prime[1]<<" "<<P4_E_prime[2]<<" "<<P4_E_prime[3]<<" 1\n";
+    
+ // cout << E_beam<<" "<<E_E_prime<<" "<< Theta_e_prime<<" "<<phi_e<<" mp\n";
     E_beam_new = E_beam;
 
     W_old = W;
@@ -302,6 +308,12 @@ W_ferm = (P4_Pini_fermi + P4_Eini - P4_E_prime).Mag();
 if (flag_radmod == 0){ 
 
 fermi_rot(E_beam_fermi,theta_rot2,E_beam,P4_E_prime,P4_E_prime_boosted);  
+
+//if (W_ferm > sqrt(MP*MP+2.*MP*E_beam_fermi - Q2)) cout <<E_beam<<" "<<E_beam_fermi<<" "<<W_old<<" "<< W_ferm<<" "<< sqrt(MP*MP+2.*MP*E_beam_fermi - Q2) <<" r1\n";
+
+//if (sqrt(MP*MP+2.*MP*E_beam_fermi - Q2)<1.8) cout <<E_beam<<" "<<E_beam_fermi<<" "<<W_old<<" "<< W_ferm<<" "<< sqrt(MP*MP+2.*MP*E_beam_fermi - Q2) <<" r1\n";
+
+//if (Q2 > 4.*E_beam_fermi*E_beam_fermi*sin(M_PI/2.)*sin(M_PI/2.)) cout<<Q2<<" "<< 4.*E_beam_fermi*E_beam_fermi*sin(M_PI/2.)*sin(M_PI/2.) <<" r2\n";
 
 ph_e_qualab = P4_E_prime_boosted.Phi();
 

@@ -165,12 +165,15 @@ getline (cin,qqq);
 #ifndef BOS
 if (!(flag_bos==0)){
 flag_bos=0;
-cout << "Ouput BOS flag  " << flag_bos << "  - no BOS output by default (for BOS output compile make bos) " << "\n";
+cout << "Ouput BOS flag  " << flag_bos << "  - no BOS output, since 'make nobos' used (for BOS output compile 'make bos') " << "\n";
 };
 #endif    
    getline (cin,qqq);
     out_bos_file = qqq.substr(0, qqq.find(" ",0));
-    cout << "BOS output file name " << out_bos_file <<"\n";
+    
+#ifdef BOS    
+    if (flag_bos==1) cout << "BOS output file name " << out_bos_file <<"\n";
+#endif 
     
      getline (cin,qqq);
     qqq = qqq.substr(0, qqq.find(" ",0));
@@ -207,7 +210,7 @@ cout << "Ouput BOS flag  " << flag_bos << "  - no BOS output by default (for BOS
         switch (flag_fermi) {
     case 0:  cout << "Fermi flag " << flag_fermi << "  - no fermi smearing" << "\n";
     break;
-     case 1:  cout << "Fermi flag " << flag_fermi << "  -  with fermi smearing by default" << "\n";
+     case 1:  cout << "Fermi flag " << flag_fermi << "  -  with fermi smearing (this mode is fixed)" << "\n";
     break;
     };
     
@@ -218,11 +221,11 @@ cout << "Ouput BOS flag  " << flag_bos << "  - no BOS output by default (for BOS
         switch (flag_flux) {
     case 0:  cout << "Flux flag " << flag_flux << "  - under influence of virtual photons (model cross section)" << "\n";
     break;
-     case 1:  cout << "Flux flag " << flag_flux << "  -  under influence of electrons (like data)" << "\n";
+     case 1:  cout << "Flux flag " << flag_flux << "  -  under influence of electrons (like exp data)" << "\n";
     break;
     };
     
-if(!(flag_fermi_old==1)) cout <<"\nCAUTION! This is TWOPEG-D version! It works in Fermi mode by default! If you want to simulate the reaction on the free proton, please, use the standard TWOPEG version.\n";      
+if(!(flag_fermi_old==1)) cout <<"\nCAUTION! This is a TWOPEG-D version! It always works in Fermi mode! If you want to simulate the reaction on the free proton, please, use the standard TWOPEG version.\n";      
 cout<<"\n";    
 cout <<"----------------------------------------\n";
 cout<<"\n";    
