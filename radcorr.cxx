@@ -12,7 +12,6 @@
 #include "Math/WrappedTF1.h"
 #include "Math/GaussIntegrator.h"
 #include "TMath.h"
-#include <TRandom3.h>
 #include "fermi_rot.h"
 
     //Min Energy of radiated photon for radcorr
@@ -485,7 +484,7 @@ s3 = DSIMPS_s3();
 return s3;
 };
 
-void radcorr(Float_t E_beam, Float_t Q2gen,Float_t Wnof, Float_t Wgen, Float_t &Wnew, Float_t &Q2new, Float_t &E_beam_new,Float_t &Ep_new,Float_t &Ebeam_ferm,Float_t &eps_l,Float_t &eps_t, Float_t &e_radgam, Float_t &cr_rad_fact, Float_t phi_e, Float_t theta_e){
+void radcorr(Float_t R, Double_t R_ini, Double_t R_fin, Float_t E_beam, Float_t Q2gen,Float_t Wnof, Float_t Wgen, Float_t &Wnew, Float_t &Q2new, Float_t &E_beam_new,Float_t &Ep_new,Float_t &Ebeam_ferm,Float_t &eps_l,Float_t &eps_t, Float_t &e_radgam, Float_t &cr_rad_fact, Float_t phi_e, Float_t theta_e){
 
 //Note that here Wgen - is the true value that takes into account the proton motion, while Wnof - is smeared value calculated at proton-at-rest assumption
 
@@ -505,28 +504,16 @@ T_wf  = 0.;
 
 
 if (flag_radmod == 2) {
-
  T_targ = Targ_len/Targ_radlen;
  T_wi = Twi_thick/Twi_radlen*1E-4;
  T_wf = Twf_thick/Twf_radlen*1E-4;
-
-//cout << T_targ << " "<< T_wi<<" "<< T_wf<<"\n";
-
-// T_targ  = 0.002683123d+0;
-//T_wi	= 0.00001686d+0;
-//T_wf	= 0.00001686d+0;
- 
 };
  
- TRandom3 hardini_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
- TRandom3 hardfin_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
- 
- 
+
 Double_t R1[1];
 Double_t eran_hardini[1];
 
 Double_t R2[1];
-
 Double_t eran_hardfin[1];
 
 
@@ -538,9 +525,6 @@ Float_t s3 = s3_radhardfin(E_beam,Q2gen,Wnof,Wgen,phi_e,theta_e);
 
 //cout << "s1 = "<< s1_radsoft(E_beam, 0.9,1.35)<< ", s2 = "<< s2_radhardini(E_beam,0.9,1.35)<< ", s3 = "<<s3_radhardfin(E_beam,0.9,1.35)<<"\n";
 
-
-TRandom3 phot_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-Float_t R = phot_rndm.Uniform(0.,1.);
 //if ((isnan(s1))||(isnan(s2))||(isnan(s3))) 
 //cout << s1<< " "<< s2<< " "<< s3<< "\n";
 
@@ -548,6 +532,7 @@ Float_t R = phot_rndm.Uniform(0.,1.);
 //E_beam_new = E_beam;
 //Float_t Ep_new;
 
+//R is a random number from 0 to 1. It is an input parameter.
 if (R < s1/(s1+s2+s3)){
 Wnew = Wgen;
 Q2new = Q2gen;
@@ -571,8 +556,8 @@ TH1F*h_radhardini = new TH1F("h_radhardini","h_radhardini",800,ARR_e_radhardini[
 for (Int_t i=0;i<Npoints-1;i++){
 h_radhardini->SetBinContent(i+1,(ARR_r_radhardini[i]+ARR_r_radhardini[i+1])/2.);
 };
-
-R1[0] = hardini_rndm.Uniform(0.,1.);
+//R_ini is a random number from 0 to 1. It is an input parameter.
+R1[0] = R_ini;
 
 h_radhardini->GetQuantiles(1,eran_hardini,R1);
 
@@ -607,8 +592,8 @@ TH1F*h_radhardfin = new TH1F("h_radhardfin","h_radhardfin",800,ARR_e_radhardfin[
 for (Int_t i=0;i<Npoints-1;i++){
 h_radhardfin->SetBinContent(i+1,(ARR_r_radhardfin[i]+ARR_r_radhardfin[i+1])/2.);
 };
-
-R2[0] = hardfin_rndm.Uniform(0.,1.);
+//R_fin is a random number from 0 to 1. It is an input parameter.
+R2[0] = R_fin;
 
 h_radhardfin->GetQuantiles(1,eran_hardfin,R2);
 

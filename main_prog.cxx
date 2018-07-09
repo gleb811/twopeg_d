@@ -246,7 +246,15 @@ srand (time(NULL));
      TRandom3 ph_hadr_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));          
      TRandom3 r_vert_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
      TRandom3 phi_vert_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-
+//This is for Fermi motion 
+ TRandom3 fermi_R_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+ TRandom3 fermi_R1_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+ TRandom3 fermi_theta_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+ TRandom3 fermi_phi_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
+//This is for radeff 
+ TRandom3 phot_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
+ TRandom3 hardini_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+ TRandom3 hardfin_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
 
 // Start to generate electrons    
 for (Int_t i=1; i<=Nevents; i++) {
@@ -307,12 +315,9 @@ ph_hadr = ph_hadr_rndm.Uniform(0.,6.28318);
 // if (flag_fermi == 1) {
   do {
 
-    fermi_bonn();
- 
-//px_fermi=-0.0187573 ;//!!!
-//py_fermi=0.0277425 ;//!!!
-//pz_fermi=-0.0335899;//!!!
-                          P4_Pini_fermi.SetXYZT(px_fermi,py_fermi,pz_fermi,sqrt(MP*MP+px_fermi*px_fermi+py_fermi*py_fermi+pz_fermi*pz_fermi));
+    fermi_bonn(fermi_R_rndm.Uniform(0.,0.9999679),fermi_R1_rndm.Uniform(0.,1.),fermi_theta_rndm.Uniform(-1.,1.),fermi_phi_rndm.Uniform(0.,2.*M_PI));
+
+P4_Pini_fermi.SetXYZT(px_fermi,py_fermi,pz_fermi,sqrt(MP*MP+px_fermi*px_fermi+py_fermi*py_fermi+pz_fermi*pz_fermi));
 	
 W_ferm = (P4_Pini_fermi + P4_Eini - P4_E_prime).Mag();
  		
@@ -355,7 +360,7 @@ eps_l = Q2*eps_t/nu_quLab/nu_quLab;
  };
  
 if ((flag_radmod == 1)||(flag_radmod == 2)){
- radcorr(E_beam,Q2,W_old,W_ferm,Wnew,Q2new,E_beam_new,Ep_new,E_beam_fermi,eps_l,eps_t,e_rad_phot,cr_rad_fact,phi_e,Theta_e_prime);
+ radcorr(phot_rndm.Uniform(0.,1.),hardini_rndm.Uniform(0.,1.),hardfin_rndm.Uniform(0.,1.),E_beam,Q2,W_old,W_ferm,Wnew,Q2new,E_beam_new,Ep_new,E_beam_fermi,eps_l,eps_t,e_rad_phot,cr_rad_fact,phi_e,Theta_e_prime);
     h_eradgam->Fill(e_rad_phot,1.);
     
 get_rot2(E_beam_new, Ep_new, phi_e,Theta_e_prime, theta_rot2,  ph_e_qualab);
@@ -635,7 +640,7 @@ sigma_total = sigma_total*V_flux;
 
 if ((isnan(abs(sigma_total)))||(isnan(abs(cr_rad_fact)))) cout<< sigma_total<<" "<<cr_rad_fact<<" oo\n";
 
-if (!(sigma_total>0.)&&!(sigma_total<0.)) cout << sigma_total <<" "<<cr_rad_fact<<" "<<V_flux<<" "<< W_old<< " "<<W_ferm<<" "<<W<<" "<<Q2_old<<" "<<Q2<< " Zero cross-section\n";
+if (!(sigma_total>0.)&&!(sigma_total<0.)) cout << sigma_total <<" "<<cr_rad_fact<<" "<<V_flux<<" "<< W_old<< " "<<W_ferm<<" "<<W<<" "<<Q2_old<<" "<<Q2<<  " Zero cross-section\n";
 
 
 

@@ -1,4 +1,4 @@
-100000        // Number of events to be generated
+1000000        // Number of events to be generated
 2.        // Beam energy (GeV)
 1.3            // W minimum (GeV) 
 2.3           // Wmaximum (GeV)
@@ -23,6 +23,6 @@
 out.bos         // BOS output file name
 0                 // Otput LUND file 0 - no, 1 - yes
 out.lund        // LUND output file name
-0              // Radiative mode 0 - no rad effects, 1 - rad eff with no straggling,  2 - rad eff with straggling
+2              // Radiative mode 0 - no rad effects, 1 - rad eff with no straggling,  2 - rad eff with straggling
 1                //Fermi smearing: 0 - no, 1 - yes (it is 1 by default)
 1                //Multiplication by virtual photon flux: 0 - no (under influence of virtual photons), 1 - yes (under influence of electrons)

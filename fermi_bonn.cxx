@@ -5,12 +5,11 @@
 #include <TLorentzVector.h>
 #include <iostream>
 #include "global.h"
-#include <TRandom3.h>
 
 using namespace std;
 
 
-void fermi_bonn() {
+void fermi_bonn(Double_t R, Double_t R1, Double_t th_cos, Double_t ph) {
 
 
 
@@ -181,38 +180,19 @@ Double_t array[] = {
      0.9999159,0.9999186,0.9999212,0.9999238,0.9999263,0.9999288,
      0.9999313,0.9999338,0.9999363,0.9999387,0.9999411,0.9999435,
      0.9999459,0.9999482,0.9999505,0.9999527,0.9999549,0.9999571,
-     0.9999593,0.9999615,0.9999636,0.9999658,0.9999679,
-	};
-
-//srand (time(NULL));
-
-//Double_t PI = 3.1415;
-Double_t theta,phi;
-Double_t momentum,R; 
-
-//R = 0.965966*((double) rand() / (RAND_MAX)); //for cut on 300 ->for (Int_t j=0; j<=300; j++) {
-TRandom3 fermi_R_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-TRandom3 fermi_R1_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-TRandom3 fermi_theta_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-TRandom3 fermi_phi_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+     0.9999593,0.9999615,0.9999636,0.9999658,0.9999679	};
 
 
-R = fermi_R_rndm.Uniform(0.,1.);
+Double_t theta,phi, momentum;
 
 for (Int_t j=0; j<=1000; j++) {
-if ((R >= array[j])&&(R < array[j+1])) momentum = 0.001*double(j)+0.001*fermi_R1_rndm.Uniform(0.,1.);
-//momentum =momentum*0.99997;
+if ((R >= array[j])&&(R < array[j+1])) momentum = 0.001*double(j)+0.001*R1;
 };
 
 //theta =  acos(1.-2.*((double) rand()/(RAND_MAX)));
-theta = acos(fermi_theta_rndm.Uniform(-1.,1.));
+theta = acos(th_cos);
 
-
-//phi = 2.*M_PI*((double) rand()/(RAND_MAX));
-phi = fermi_phi_rndm.Uniform(0.,2.*M_PI);
-
-//cout << "qqq2 "<< theta << " "<< phi<<"\n";
-
+phi = ph;
 
 px_fermi = momentum*sin(theta)*cos(phi);
 py_fermi = momentum*sin(theta)*sin(phi);
