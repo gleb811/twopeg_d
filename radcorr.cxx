@@ -67,6 +67,7 @@ return 4./3.*(1. + ((Z+1.)/(Z+xi))/(log(183.) - log(Z)/3.)/9.);
 //Spence-function-----------------------------------------------------------------------
 Float_t Spence(Float_t x){
 
+Float_t value;
 Float_t null = 1E-8;
 
 if ((x>=null)&&(x<=1.)) {
@@ -75,7 +76,7 @@ if ((x>=null)&&(x<=1.)) {
    ROOT::Math::GaussIntegrator ig;
    ig.SetFunction(wf1);
    ig.SetRelTolerance(1E-8);
-   return ig.Integral(null, x);
+   value = ig.Integral(null, x);
 };
 
 if (x>=1.) {
@@ -84,7 +85,7 @@ if (x>=1.) {
    ROOT::Math::GaussIntegrator ig;
    ig.SetFunction(wf1);
    ig.SetRelTolerance(1E-8);
-   return M_PI*M_PI/6. + ig.Integral(1., x);
+   value = M_PI*M_PI/6. + ig.Integral(1., x);
   };
  
  
@@ -94,14 +95,13 @@ if (x>=1.) {
    ROOT::Math::GaussIntegrator ig;
    ig.SetFunction(wf1);
    ig.SetRelTolerance(1E-8);
-   return -1.*ig.Integral(x, -1*null);
+   value = -1.*ig.Integral(x, -1*null);
   };
- 
- 
- if ((x>=-1.*null)&&(x<=null)) return 0.;
- 
- };
+  
+ if ((x>=-1.*null)&&(x<=null)) value = 0.;
 
+return value; 
+ };
 
 
 //This subroutine calculates the first term of the formula (IV.1) Mo&Tsai  (page 213)

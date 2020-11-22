@@ -9,7 +9,7 @@
 #include "global.h"
  using namespace std;
 
-int inp_file_read(Float_t &E_beam) {
+void inp_file_read(Float_t &E_beam) {
  string qqq;
  
  

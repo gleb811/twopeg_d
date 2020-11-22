@@ -15,7 +15,7 @@
 //out_file_close() - it closes all outputs including the root tree with the cross section values
 //hist_write() - it writes the histogramms into the auxiliary root-file
 
-int out_file_close() {
+void out_file_close() {
 #ifdef BOS
 //I. Close BOS output if exists
 if ((flag_bos == 1)||(flag_bos == 2)){
