@@ -122,18 +122,16 @@ global();
     Int_t k=0;
    
     ostringstream qqq;   
-  
-//This is a directory for cross section files taking. By default it is /data
- data_dir = getenv("data_dir_2pi");
- data_dir_2pi << data_dir;
- cout << "DATA DIR IS " << data_dir_2pi.str() << endl;
- 
+
+//This is the environment variable that points to the "data" folder with the cross section files.
+//By default it points to the current directory (in which the EG executes).   
+data_dir = getenv("TWOPEG_DATA_DIR");
+data_dir_2pi << data_dir << "/";
+cout << "TWOPEG_DATA_DIR is " << data_dir_2pi.str() << endl; 
    
 //This needed for taking masses of the particles from pdg_table located in ROOT_DIR
-
 const char *HOME_ROOT;
 const char *HOME_ROOT1;
-    
 //HOME_ROOT = getenv("ROOT");
 system("root_home=`root-config --etcdir`");
 HOME_ROOT = getenv("root_home");
@@ -234,26 +232,26 @@ cout <<"\n";
 srand (time(NULL));
 //srand (666777);
 
-     TRandom3 ph_e_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-     TRandom3 th_hadr_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-     TRandom3 W_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-     TRandom3 Q2_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-     TRandom3 z_EL_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-     TRandom3 alph_hadr_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
-     TRandom3 s12_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-     TRandom3 s23_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));     
-     TRandom3 ph_hadr_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));          
-     TRandom3 r_vert_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
-     TRandom3 phi_vert_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 ph_e_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 th_hadr_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 W_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 Q2_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 z_EL_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 alph_hadr_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
+TRandom3 s12_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 s23_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));	 
+TRandom3 ph_hadr_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));	  
+TRandom3 r_vert_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 phi_vert_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
 //This is for Fermi motion 
- TRandom3 fermi_R_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
- TRandom3 fermi_R1_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
- TRandom3 fermi_theta_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
- TRandom3 fermi_phi_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
+TRandom3 fermi_R_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 fermi_R1_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 fermi_theta_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 fermi_phi_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
 //This is for radeff 
- TRandom3 phot_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
- TRandom3 hardini_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
- TRandom3 hardfin_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
+TRandom3 phot_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
+TRandom3 hardini_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
+TRandom3 hardfin_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.)); 
 
 // Start to generate electrons    
 for (Int_t i=1; i<=Nevents; i++) {
