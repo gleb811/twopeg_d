@@ -436,15 +436,11 @@ for (Int_t itheta = 1; itheta <=14; itheta++) {
 for (Int_t ialpha = 1; ialpha <=14; ialpha++) {
 getline(input,xsect);
 //Define 2dim s12 and s23 arrays
-//S12_val = atof(xsect.c_str());
 S12_ARR_GOL[is12-1][i] = atof(xsect.c_str());
 getline(input,xsect);
-//S23_val = atof(xsect.c_str());
 S23_ARR_GOL[is23-1][i] = atof(xsect.c_str());
 getline(input,dummy);
-//TH_val = atof(dummy.c_str());
 getline(input,dummy);
-//ALP_val = atof(dummy.c_str());
 getline(input,xsect);
 //sigma_t
 
@@ -2760,15 +2756,6 @@ SIGMA_ARR_FED_THRESH[j][q2bin][0][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_AR
 SIGMA_ARR_FED_THRESH[j][q2bin][1][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_FED[j][q2bin][0][is23-1][is12-1][itheta-1][ialpha-1]*0.4;
 SIGMA_ARR_FED_THRESH[j][q2bin][2][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_FED[j][q2bin][0][is23-1][is12-1][itheta-1][ialpha-1]*0.7;
 
-//SIGMA_ARR_FED_THRESH[j][q2bin][0][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_FED[j][q2bin][0][is23-1][is12-1][itheta-1][ialpha-1];
-//SIGMA_ARR_FED_THRESH[j][q2bin][1][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_FED[j][q2bin][0][is23-1][is12-1][itheta-1][ialpha-1];
-//SIGMA_ARR_FED_THRESH[j][q2bin][2][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_FED[j][q2bin][0][is23-1][is12-1][itheta-1][ialpha-1];
-
-
-//if (q2bin==4) SIGMA_ARR_FED_THRESH[j][q2bin][1][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_FED_THRESH[j][q2bin][1][is23-1][is12-1][itheta-1][ialpha-1]*1.07;
-//if (q2bin==6) SIGMA_ARR_FED_THRESH[j][q2bin][1][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_FED_THRESH[j][q2bin][1][is23-1][is12-1][itheta-1][ialpha-1]*1.07;
-//if (q2bin==5) SIGMA_ARR_FED_THRESH[j][q2bin][1][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_FED_THRESH[j][q2bin][1][is23-1][is12-1][itheta-1][ialpha-1]*1.07;
-
 
 SIGMA_ARR_FED[j][q2bin][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_FED[j][q2bin][wbin][is23-1][is12-1][itheta-1][ialpha-1]*M_PI*M_PI*2.*M_PI;
 
@@ -3803,32 +3790,6 @@ if (i==6) SIGMA_ARR_RIP3[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_AR
 if (i==7) SIGMA_ARR_RIP3[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP3[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*0.6*1.02;
 if (i==8) SIGMA_ARR_RIP3[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP3[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*0.7*1.05;
 if (i==9) SIGMA_ARR_RIP3[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP3[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*0.7*1.18;
-/*
-if (i==0) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.15*1.02*1.05*0.98;
-if (i==1) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.007*1.1;
-if (i==2) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.1*1.01*0.95*0.95;
-if (i==3) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*0.96*1.03*1.05*0.95;
-if (i==4) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*0.94*1.02*0.9;
-if (i==5) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.02*0.87;
-if (i==6) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.03*1.02*0.94;
-if (i==7) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.06*1.02*0.9;
-if (i==8) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.07*1.04*0.9;
-if (i==9) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.03*0.83;
-if (i==10) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.16*1.07;
-
-
-if ((i==3)&&(j==1)) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*0.8;
-if ((i==4)&&(j==1)) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.1;
-
-if ((i>=11)&&(i<=20)&&(j==0)) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.69;
-if ((i>=11)&&(i<=20)&&(j==1)) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*8.9;
-
-if (i==11) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*0.95;
-if (i==12) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.05;
-
-if (i==14) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.15;
-if (i==20) SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP2[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*0.8;
-*/
 
 
 if (j==0) SIGMA_ARR_RIP3[j][wbin][is23-1][is12-1][itheta-1][ialpha-1] = SIGMA_ARR_RIP3[j][wbin][is23-1][is12-1][itheta-1][ialpha-1]*1.69*0.7;
