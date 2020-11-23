@@ -73,4 +73,4 @@ extern  TH1F *h_odn_w_dep_tot[12];
 extern  TH1F *h_int_crsect_t[27];
 extern  TH1F *h_int_crsect_l[27];
 
-int hist_def(Float_t E_beam);
+void hist_def(Float_t E_beam);
