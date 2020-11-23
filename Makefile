@@ -1,5 +1,5 @@
-BOS = bos
-NOBOS = nobos
+BOS = d_bos
+NOBOS = d
 CXX           = g++ -O2 -Wno-write-strings -Wno-pragmas -I$(CLAS_BUILD)/packages/include -I$(PWD)/interpol -I$(PWD)/get_xsect -I$(PWD)
 CXX_BOS       = g++ -DBOS -O2 -Wno-write-strings -Wno-pragmas -I$(CLAS_BUILD)/packages/include -I$(PWD)/interpol -I$(PWD)/get_xsect -I$(PWD)
 ObjSuf        = o
@@ -24,24 +24,24 @@ usage:
 	@echo "  make nobos"
 
 
-bos: setcxx twopeg_$(BOS).exe
+bos: setcxx twopeg_$(BOS)
 setcxx: 
 	rm -f *.o
 	rm -f *Dict.*
 	rm -f G__*
 	$(eval CXX = $(CXX_BOS))
-twopeg_$(BOS).exe: $(OBJS)
+twopeg_$(BOS): $(OBJS)
 	$(CXX) -g -o $@ $^ -L/usr/lib64 -L/u/home/gleb/lib/LinuxRHFC8 -lpid -ltag -llac -lseb -lst -lclasutil -lsc -lc_bos_io -ldc -lec -lcc -ltrk -ldc -lc_bos_io -lsc -lmapmanager -lfputil -lfpack -lrecutl -lonline_dummy -lc_cern -lclasutil -lbos -lfpack -lbankdefs -L/u/home/gleb/cern/2005/lib -lpacklib -lkernlib -lnsl -lgfortran -lmathlib -lpacklib -lkernlib -lpawlib $(ROOTGLIBS)  -lEG 
 %.o: %.cxx
 	$(CXX) -g -c $(ROOTINCLUDE) -c $<  -o $@
 	
 
-nobos: remove twopeg_$(NOBOS).exe
+nobos: remove twopeg_$(NOBOS)
 remove:
 	rm -f *.o
 	rm -f *Dict.*
 	rm -f G__*	
-twopeg_$(NOBOS).exe: $(OBJS) 
+twopeg_$(NOBOS): $(OBJS) 
 	$(CXX) -g -o  $@ $^ -L/usr/lib64    $(ROOTGLIBS)  -lEG
 
 
@@ -54,6 +54,6 @@ clean:
 	rm -f G__*
 	rm -f interpol/*.o 
 	rm -f get_xsect/*.o 
-	rm twopeg*.exe
+	rm -f twopeg_d twopeg_d_bos
 	
 
