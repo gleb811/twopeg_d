@@ -144,8 +144,6 @@ Float_t Q2_ARR_2pi_INT[27];
 Float_t SIGMA_T_ARR_2pi_INT[27][71];
 Float_t SIGMA_L_ARR_2pi_INT[27][71];
    
-Float_t SIGMA_INT_ARR_GENEV_OLD[227];
-  
 Float_t SIGMA_T_INT_RIPANI[17];
 Float_t SIGMA_T_INT_GOLOVA[17]; 
 //Cross-sections interpolated over 4 hadron variables (s12, s23, theta, alpha). They will be interpolated over W and Q2.

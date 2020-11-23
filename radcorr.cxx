@@ -134,7 +134,6 @@ factor_radsoft = exp(Delta_t + Delta_r);
 
 //Cross-section interpolation
 interpol_int(Q2gen,Wgen,sec_test_t, sec_test_l);
-//interpol_int_genev_old(Q2gen,Wgen,sec_test_t, sec_test_l);
 
 //if (isnan(theta_e)) cout << theta_e<<"  oo\n";
 get_EpsL_Ebeam_ferm(E_beam,E_beam - E_gamma_lab, phi_e,theta_e,eps_l,eps_t,Ebeam_ferm,Ep_ferm);
@@ -464,8 +463,6 @@ if ((w_new > 1.2375)&&(w_new < 4.5375)) {
 
 //Cross-section interpolation
 interpol_int(q2_new,w_new,sec_test_t, sec_test_l);
-//interpol_int_genev_old(q2_new,w_new,sec_test_t, sec_test_l);
-
 
 //cout << eps_l <<" "<< Ebeam_ferm<<" \n";
 sec_total = sec_test_t + eps_l*sec_test_l;

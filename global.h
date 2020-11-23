@@ -119,8 +119,6 @@ extern Float_t Q2_ARR_2pi_INT[27];
 extern Float_t SIGMA_T_ARR_2pi_INT[27][71];
 extern Float_t SIGMA_L_ARR_2pi_INT[27][71];
     
-extern Float_t SIGMA_INT_ARR_GENEV_OLD[227];
-     
 extern Float_t sigma_wright_q2left[6];
 extern Float_t sigma_wright_q2right[6];
 extern Float_t sigma_wleft_q2right[6];
