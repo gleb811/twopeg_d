@@ -35,7 +35,7 @@
 #include <RQ_OBJECT.h>
 #include <iostream>
 
-#include "inp_file_read.h"
+#include "input.h"
 #include "hist_def.h"
 #include "read_xsect_files.h"
 #include "read_fit_param_files.h"
@@ -73,8 +73,27 @@
      Float_t G_BYCKLING(Float_t x, Float_t y, Float_t z, Float_t u, Float_t v, Float_t w) {
      return x*x*y+x*y*y+z*z*u+z*u*u+v*v*w+v*w*w+x*z*w+x*u*v+y*z*v+y*u*w-x*y*(z+u+v+w)-z*u*(x+y+v+w)-v*w*(x+y+z+u);
      };
+//This is the function that performs the generation. It is declared here and executes below.   
+void generate(Int_t argc, char *argv[]);
 
-int main(int argc, char** argv) {
+
+int main(int argc, char** argv){
+std::string arg;
+
+if (argc < 2) generate(argc,argv);
+
+if (argc >= 2){
+arg =   argv[1];
+if (arg == "--help") cmdl_help();
+if (!(arg == "--help"))  generate(argc,argv);
+};
+
+return 0;
+};
+
+
+//This is the function that performs the generation.
+void generate(Int_t argc, char *argv[]) {
 
 global();
     
@@ -99,6 +118,8 @@ global();
     Float_t  z_EL, x_EL, y_EL,r_vert, phi_vert;
     Float_t  e_rad_phot, cr_rad_fact; 
     Float_t  eps_l,eps_t,eps_l_for_flux,eps_t_for_flux,Ebeam_ferm_for_flux,Ep_ferm_for_flux;
+    Short_t flag_seed = 0;
+    Int_t seed = 0;
     
     Float_t V_flux = 0.;
     Float_t alph_const = 1./137.035;
@@ -150,19 +171,18 @@ MPIM= part1->Mass();
 part1 = pdg->GetParticle("e-");
 Me= part1->Mass();  
 
-
 //Reading input parameters
-inp_file_read(E_beam);
+if (argc<2) input_stream(E_beam);
+if (argc>=2) input_cline(E_beam, argc,argv, flag_seed, seed);
+inp_couts(E_beam);
+
 //Reading diff cross section from the tables in .dat files (filling out GLOBAL arrays)
 read_xsect_files();
 //Reading fit parameterms, which are needed for cross section extrapolation 
 read_fit_param_files();
    
-    P4_Pini.SetXYZT(0.,0.,0.,MP); 
-    P4_Eini.SetXYZT(0.,0.,E_beam,E_beam);
-     
-
-   //Reasonably changing max&min limits of kinematical variables if needed
+//Reasonably changing max&min limits of kinematical variables if needed
+cout << "___________________________________________\n\n";
     
      if (W_min < (1.2375)) {
     W_min = 1.2375;
@@ -199,9 +219,12 @@ read_fit_param_files();
     cout << "maximum W has been changed to " << W_max << "\n";
     };     
 
-
+//Defining some histograms
+hist_def(E_beam);  
       
-
+//Defining the 4-vectors of the initial particles (e and p)
+    P4_Pini.SetXYZT(0.,0.,0.,MP); 
+    P4_Eini.SetXYZT(0.,0.,E_beam,E_beam);
       
 //Chosing variable set   
 //Second set of variables. FOR 1-PIM, 2-PIP, 3-P
@@ -217,10 +240,7 @@ read_fit_param_files();
 //   M2 = MPIM;
 //   M3 = MP;
     
-    
-//Defining some histograms
-hist_def(E_beam);      
-    
+   
 //open input file
 out_file_open();
 
@@ -229,8 +249,11 @@ cout <<"\n";
 //%%%%%%%%%%%%%%%%%%%%!I. GENERATION STARTS!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-srand (time(NULL));
-//srand (666777);
+ cout << "____________EVENT GENERATION:______________\n\n";
+
+if (flag_seed == 0) seed = time(NULL);
+srand (seed);
+cout << "RandomSeedActuallyUsed: " << seed << endl;       
 
 TRandom3 ph_e_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
 TRandom3 th_hadr_rndm(UInt_t(((float) rand() / (float)(RAND_MAX))*4000000000.));
@@ -730,5 +753,4 @@ ofs <<h_int_crsect_l[j]->GetBinContent(i) << "\n";
 };
  */
   
-  return 0;
 }
