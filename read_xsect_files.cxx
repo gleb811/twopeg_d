@@ -27,12 +27,7 @@ using namespace std;
 
 
 void read_xsect_files(){
-Float_t S12_val, S23_val, TH_val, ALP_val;
-Float_t s12_min, s12_max,s23_min, s23_max, th_min, th_max, alp_min, alp_max;
-Float_t dm12,dm23;
-Float_t ds12_tmp,ds23_tmp, dalpha_tmp;
-Float_t dalpha, ds12, ds23;
-Float_t th_l, th_r, dtheta, dtheta_tmp;
+
 string file_names[51];
 string file_names_gol[30];
 string file_names_fed[56];
@@ -2885,15 +2880,11 @@ for (Int_t itheta = 1; itheta <=6; itheta++) {
 for (Int_t ialpha = 1; ialpha <=6; ialpha++) {
 getline(input,xsect);
 //Define 2dim s12 and s23 arrays
-S12_val = atof(xsect.c_str());
 S12_ARR_RIP2[is12-1][wbin] = atof(xsect.c_str());
 getline(input,xsect);
-S23_val = atof(xsect.c_str());
 S23_ARR_RIP2[is23-1][wbin] = atof(xsect.c_str());
 getline(input,dummy);
-TH_val = atof(dummy.c_str());
 getline(input,dummy);
-ALP_val = atof(dummy.c_str());
 getline(input,xsect);
 //sigma_t
 SIGMA_ARR_RIP2[0][wbin][is23-1][is12-1][itheta-1][ialpha-1] = atof(xsect.c_str());
@@ -2916,17 +2907,6 @@ getline(input,xsect);
 EPS_L_RIP2[wbin] = atof(xsect.c_str());
 getline(input,dummy);
 
-if ((is23==1)&&(itheta==1)&&(ialpha==1)&&(is12==1)) s12_min = S12_val;
-if ((is23==1)&&(itheta==1)&&(ialpha==1)&&(is12==12)) s12_max = S12_val;
-
-if ((is12==1)&&(itheta==1)&&(ialpha==1)&&(is23==1)) s23_min = S23_val;
-if ((is12==1)&&(itheta==1)&&(ialpha==1)&&(is23==12)) s23_max = S23_val;
-
-if ((is12==1)&&(itheta==1)&&(ialpha==1)&&(is23==1)) th_min = TH_val;
-if ((is12==1)&&(itheta==6)&&(ialpha==1)&&(is23==1)) th_max = TH_val;
-
-if ((is12==1)&&(itheta==1)&&(ialpha==1)&&(is23==1)) alp_min = ALP_val;
-if ((is12==1)&&(itheta==1)&&(ialpha==6)&&(is23==1)) alp_max = ALP_val;
 
 };
 };
