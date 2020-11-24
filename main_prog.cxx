@@ -226,8 +226,8 @@ cout << "Maximum W  has been changed to " << W_max << "\n";
 hist_def(E_beam);  
       
 //Defining the 4-vectors of the initial particles (e and p)
-    P4_Pini.SetXYZT(0.,0.,0.,MP); 
-    P4_Eini.SetXYZT(0.,0.,E_beam,E_beam);
+P4_Pini.SetXYZT(0.,0.,0.,MP); 
+P4_Eini.SetXYZT(0.,0.,E_beam,E_beam);
       
 //Chosing variable set   
 //Second set of variables. FOR 1-PIM, 2-PIP, 3-P
@@ -455,15 +455,13 @@ Q2nodata = Q2;
 if (Q2 > 1.299)Q2 = 1.299;
 if (Q2 < 0.0005)Q2 = 0.0005;
 
-if (W<1.2375){
-
 sigma_t_final = 0.;
 sigma_l_final = 0.;
 sigma_c2f_final = 0.;
 sigma_s2f_final = 0.;
 sigma_cf_final = 0.;
 sigma_sf_final = 0.;
-};
+
 
 //Getting cross section in given generated (W, Q2, s12, s23, theta, alpha)-point
 sigma_total = 0.;
@@ -621,7 +619,7 @@ sigma_sf_final = sigma_sf_final*Func_q2_dep(Q2nodata)/Func_q2_dep(1.299);
 
 Q2 = Q2nodata;
 
-if (W < 1.2375){
+if ((W < 1.2375)||(W > 4.5375)){
 sigma_t_final = 0.;
 sigma_l_final = 0.;
 sigma_c2f_final = 0.;
