@@ -634,11 +634,12 @@ if (W < 3.0125) interpol_int(Q2,W,xsect_int_test_t, xsect_int_test_l);
 
 //calculating sigma_total from different sigmas, eps_l and eps_t
 
-if ((isnan(eps_l))||(isnan(eps_t))) cout << eps_l<< " "<< eps_t<<" eps\n";
+if ((isnan(eps_l))||(isnan(eps_t))) cout << eps_l<< " "<< eps_t<<" eps in nan!\n";
 
 if  (!(eps_l>0.)&&!(eps_l<0)) eps_l = 0.;
 if  (!(eps_t>0.)&&!(eps_t<0)) eps_t = 0.;
 
+//combining structure function into the full cross section
 sigma_total = sigma_t_final;
 sigma_total = sigma_total + eps_l*sigma_l_final;
 sigma_total = sigma_total + eps_t*(sigma_c2f_final*cos(2.*ph_hadr) + sigma_s2f_final*sin(2.*ph_hadr));
@@ -648,6 +649,7 @@ sigma_total = sigma_total + sqrt(2.*eps_l*(eps_t+1))*(sigma_cf_final*cos(ph_hadr
 //Adding additional rad corr weight factor, if needed
 sigma_total = sigma_total*cr_rad_fact;
 
+if (isnan(cr_rad_fact)) cout<< sigma_total<<" "<<cr_rad_fact<<" rad corr factor is nan!\n";
 
 //multiply sigma_total by virtual photon flux
 if (flag_flux==1){
@@ -662,9 +664,9 @@ V_flux = V_flux*W_ferm*(W_ferm*W_ferm-MP*MP);
 sigma_total = sigma_total*V_flux;    
 };
 
-if ((isnan(abs(sigma_total)))||(isnan(abs(cr_rad_fact)))) cout<< sigma_total<<" "<<cr_rad_fact<<" oo\n";
+if ((isnan(abs(sigma_total)))||(isnan(abs(cr_rad_fact)))) cout<< "Weight is nan! Sigma_total = " << sigma_total<<", rad corr factor = "<<cr_rad_fact<<"\n";
 
-if (!(sigma_total>0.)&&!(sigma_total<0.)) cout << sigma_total <<" "<<cr_rad_fact<<" "<<V_flux<<" "<< W_old<< " "<<W_ferm<<" "<<W<<" "<<Q2_old<<" "<<Q2<<  " Zero cross-section\n";
+if (!(sigma_total>0.)&&!(sigma_total<0.)&&!(isnan(sigma_total))) cout << sigma_total <<" "<<cr_rad_fact<<" "<<V_flux<<" "<< W_old<< " "<<W_ferm<<" "<<W<<" "<<Q2_old<<" "<<Q2<<  " Zero cross-section\n";
 
 
 
