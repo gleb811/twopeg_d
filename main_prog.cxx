@@ -212,15 +212,11 @@ Q2_max = Q2lim2;
 cout << "Maximum Q2 has been changed to " << Q2_max << "\n";
 };
      
-if ((W_max*W_max > MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min)&&(W_max <= 4.5375)) {
+if ((W_max*W_max > MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min)) {
 W_max = sqrt(MP*MP +2.*MP*(E_beam - E_eprime_min) -Q2_min);
 cout << "Maximum W  has been changed to " << W_max << "\n";
 };
 
-if (W_max > 4.5375) {
-W_max = 4.5375;
-cout << "Maximum W  has been changed to " << W_max << "\n";
-};     
 
 //Defining some histograms
 hist_def(E_beam);  
@@ -664,9 +660,10 @@ V_flux = V_flux*W_ferm*(W_ferm*W_ferm-MP*MP);
 sigma_total = sigma_total*V_flux;    
 };
 
-if ((isnan(abs(sigma_total)))||(isnan(abs(cr_rad_fact)))) cout<< "Weight is nan! Sigma_total = " << sigma_total<<", rad corr factor = "<<cr_rad_fact<<"\n";
 
-if (!(sigma_total>0.)&&!(sigma_total<0.)&&!(isnan(sigma_total))) cout << sigma_total <<" "<<cr_rad_fact<<" "<<V_flux<<" "<< W_old<< " "<<W_ferm<<" "<<W<<" "<<Q2_old<<" "<<Q2<<  " Zero cross-section\n";
+if ((isnan(sigma_total))||(isnan(V_flux))) cout << "Sigma = "<< sigma_total << ", Flux = "<< V_flux <<", W_old =  "<< W_old<< ", W =  "<<W<<", Q2 =  "<<Q2<<  ", Weight is nan!\n";
+
+if (!(sigma_total>0.)&&!(sigma_total<0.)&&!(isnan(sigma_total))&&(W_old<=4.5375)) cout <<"Sigma = "<< sigma_total <<", W_old =  "<< W_old<< ", W_ferm =  "<<W_ferm<<" "<<W<<", Q2 =  "<<Q2<<  ", Zero cross section!\n";
 
 
 
