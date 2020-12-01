@@ -170,10 +170,10 @@ std::string end_str;
    Targ_rad = 0.6; 	// Target radius in cm
    Targ_len = 2.0; 	// Target length in cm
    Targ_off = 0.0;	// Target offset in z in cm
-   Targ_dens = 0.071;	// Target density (g/cm^3)//not used
-   Targ_radlen = 888.03; // Target radiation length (cm)
+   Targ_dens = 0.169;	// Target density (g/cm^3)//not used
+   Targ_radlen = 745.4; // Target radiation length (cm)
    Targ_Z = 1; 		// Target Z
-   Targ_A = 1;	 	// Target A//not used
+   Targ_A = 2;	 	// Target A//not used
    Twi_thick = 15.0;	// Thickness of the target windows initial, final (um)
    Twf_thick = 15.0;	// Thickness of the target windows initial, final (um)
    Twi_dens = 2.699;	// Density of target windows initial,final (g/cm^3)//not used
