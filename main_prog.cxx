@@ -645,7 +645,8 @@ sigma_total = sigma_total + sqrt(2.*eps_l*(eps_t+1))*(sigma_cf_final*cos(ph_hadr
 //Adding additional rad corr weight factor, if needed
 sigma_total = sigma_total*cr_rad_fact;
 
-if (isnan(cr_rad_fact)) cout<< sigma_total<<" "<<cr_rad_fact<<" rad corr factor is nan!\n";
+if (isnan(cr_rad_fact)) cout<< sigma_total<<" "<<cr_rad_fact<<" RadCorFactor is nan!\n";
+if (!(cr_rad_fact>0.)&&!(cr_rad_fact<0.)&&!(isnan(cr_rad_fact))) cout << "RadCorFactor is zero.\n";
 
 //multiply sigma_total by virtual photon flux
 if (flag_flux==1){
@@ -663,7 +664,7 @@ sigma_total = sigma_total*V_flux;
 
 if ((isnan(sigma_total))||(isnan(V_flux))) cout << "Sigma = "<< sigma_total << ", Flux = "<< V_flux <<", W_old =  "<< W_old<< ", W =  "<<W<<", Q2 =  "<<Q2<<  ", Weight is nan!\n";
 
-if (!(sigma_total>0.)&&!(sigma_total<0.)&&!(isnan(sigma_total))&&(W_old<=4.5375)) cout <<"Sigma = "<< sigma_total <<", W_old =  "<< W_old<< ", W_ferm =  "<<W_ferm<<" "<<W<<", Q2 =  "<<Q2<<  ", Zero cross section!\n";
+if (!(sigma_total>0.)&&!(sigma_total<0.)&&!(isnan(sigma_total))&&(W_old<=4.5375)) cout <<"Sigma = "<< sigma_total <<", W_old =  "<< W_old<< ", W_ferm =  "<<W_ferm<<", W = "<<W<<", Q2 =  "<<Q2<<  ", Zero cross section!\n";
 
 
 
