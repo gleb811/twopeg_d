@@ -14,8 +14,6 @@ ROOTINCLUDE  := -I$(shell root-config --incdir)
 
 SRCS = main_prog.cxx global.cxx hist_def.cxx input.cxx read_xsect_files.cxx  read_fit_param_files.cxx  out_file_open.cxx out_file_fill.cxx  out_file_close.cxx get_xsect/get_xsect_ripani.cxx get_xsect/get_xsect_fedotov.cxx get_xsect/get_xsect_w18_25.cxx  get_xsect/get_xsect_rip_fed_join.cxx get_xsect/get_xsect_near_threshold.cxx get_xsect/get_xsect_golovach.cxx get_xsect/get_xsect_w16_18_lowq2_fit.cxx anti_rot.cxx rot.cxx get_xsect/get_xsect_w25_30.cxx radcorr.cxx fermi_bonn.cxx fermi_rot.cxx fermi_anti_rot.cxx get_xsect/get_xsect_w30_45.cxx interpol/interpol.cxx interpol/interpol_rip2.cxx interpol/interpol_golovach.cxx interpol/interpol_fedotov.cxx interpol/interpol_fedotov_thresh.cxx interpol/interpol_rip3.cxx interpol/interpol_q2_13_wgt_3.cxx interpol/interpol_phot_wgt_3.cxx interpol/interpol_gol2.cxx  interpol/interpol_int.cxx
 
-
-
 OBJS = $(SRCS:.cxx=.o)
 
 usage:     
@@ -31,7 +29,7 @@ setcxx:
 	rm -f G__*
 	$(eval CXX = $(CXX_BOS))
 twopeg_$(BOS): $(OBJS)
-	$(CXX) -g -o $@ $^ -L/usr/lib64 -L/u/home/gleb/lib/LinuxRHFC8 -lpid -ltag -llac -lseb -lst -lclasutil -lsc -lc_bos_io -ldc -lec -lcc -ltrk -ldc -lc_bos_io -lsc -lmapmanager -lfputil -lfpack -lrecutl -lonline_dummy -lc_cern -lclasutil -lbos -lfpack -lbankdefs -L/u/home/gleb/cern/2005/lib -lpacklib -lkernlib -lnsl -lgfortran -lmathlib -lpacklib -lkernlib -lpawlib $(ROOTGLIBS)  -lEG 
+	$(CXX) -g -o $@ $^ -L/usr/lib64 -L/u/home/gleb/lib/LinuxRHFC8 -L$(CLAS6LIB) -lpid -ltag -llac -lseb -lst -lclasutil  -lec -lcc -ltrk -ldc -lc_bos_io -lsc -lmapmanager -lfputil -lfpack -lrecutl -lonline_dummy -lc_cern -lbos -lbankdefs -L$(CERNLIB) -lnsl -lgfortran -lmathlib -lpacklib -lkernlib -lpawlib $(ROOTGLIBS)  -lEG 
 %.o: %.cxx
 	$(CXX) -g -c $(ROOTINCLUDE) -c $<  -o $@
 	
@@ -55,5 +53,3 @@ clean:
 	rm -f interpol/*.o 
 	rm -f get_xsect/*.o 
 	rm -f twopeg_d twopeg_d_bos
-	
-
