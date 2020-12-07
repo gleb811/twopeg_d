@@ -646,7 +646,6 @@ sigma_total = sigma_total + sqrt(2.*eps_l*(eps_t+1))*(sigma_cf_final*cos(ph_hadr
 sigma_total = sigma_total*cr_rad_fact;
 
 if (isnan(cr_rad_fact)) cout<< sigma_total<<" "<<cr_rad_fact<<" RadCorFactor is nan!\n";
-if (!(cr_rad_fact>0.)&&!(cr_rad_fact<0.)&&!(isnan(cr_rad_fact))) cout << "RadCorFactor is zero.\n";
 
 //multiply sigma_total by virtual photon flux
 if (flag_flux==1){
